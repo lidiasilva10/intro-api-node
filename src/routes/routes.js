@@ -1,8 +1,8 @@
 const express = require('express');
-const router = exprress.Router();
+const router = express.Router();
 
-const SetorController = require('../controllers/setor');
+const UsuarioController = require('../controllers/usuario');
 
-router.get('/setor', SetorController.listarSetor);
+router.get('/usuarios', UsuarioController.listarUsuarios);
 
-modulo.exports = router;
+module.exports = router;
