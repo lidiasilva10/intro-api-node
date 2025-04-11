@@ -1,16 +1,16 @@
 const db = require('../dataBase/connection');
 
 module.exports ={
-    async listarUsuarios(request, response){
+    async listarFuncao(request, response){
         try {
 
-            const sql= 'SELECT ID_Usuario, CD_Usuario, Senha, DT_Cadastro,DH_Acesso, DT_Vigencia, SN_Bloqueado, ID_Pessoa FROM usuario;';
+            const sql= 'SELECT ID_Funcao, NM_Funcao	FROM funcao;';
             
             const [rows] = await db.query(sql);
 
             return response.status(200).json({
                 sucesso: true,
-                mensagem: 'Lista de Usuários.',
+                mensagem: 'Lista de Função.',
                 itens: rows.length,
                 dados: rows
             });
@@ -23,11 +23,11 @@ module.exports ={
         }
     },
 
-    async inserirUsuarios(request, response){
+    async inserirFuncao(request, response){
         try {
             return response.status(200).json({
                 sucesso: true,
-                mensagem: 'Inserir de Usuários.',
+                mensagem: 'Inserir Função.',
                 dados:null
             });
         }catch (error) {
@@ -39,11 +39,11 @@ module.exports ={
         }
     },
 
-    async atualizarUsuarios(request, response){
+    async atualizarFuncao(request, response){
         try {
             return response.status(200).json({
                 sucesso: true,
-                mensagem: 'Atualizar de Usuários.',
+                mensagem: 'Atualizar Função.',
                 dados:null
             });
         }catch (error) {
@@ -55,11 +55,11 @@ module.exports ={
         }
     },
 
-    async excluirUsuarios(request, response){
+    async excluirFuncao(request, response){
         try {
             return response.status(200).json({
                 sucesso: true,
-                mensagem: 'Excluir Usuários.',
+                mensagem: 'Excluir Função.',
                 dados:null
             });
         }catch (error) {

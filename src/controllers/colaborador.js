@@ -1,16 +1,16 @@
 const db = require('../dataBase/connection');
 
 module.exports ={
-    async listarUsuarios(request, response){
+    async listarColaborador(request, response){
         try {
 
-            const sql= 'SELECT ID_Usuario, CD_Usuario, Senha, DT_Cadastro,DH_Acesso, DT_Vigencia, SN_Bloqueado, ID_Pessoa FROM usuario;';
+            const sql= 'SELECT ID_Colaborador, Matricula, SN_Temporario, DT_Cadastro, ID_Pessoa, ID_Funcao FROM colaborador;';
             
             const [rows] = await db.query(sql);
 
             return response.status(200).json({
                 sucesso: true,
-                mensagem: 'Lista de Usuários.',
+                mensagem: 'Lista de Colaborador.',
                 itens: rows.length,
                 dados: rows
             });
@@ -23,11 +23,11 @@ module.exports ={
         }
     },
 
-    async inserirUsuarios(request, response){
+    async inserirColaborador(request, response){
         try {
             return response.status(200).json({
                 sucesso: true,
-                mensagem: 'Inserir de Usuários.',
+                mensagem: 'Inserir Colaborador.',
                 dados:null
             });
         }catch (error) {
@@ -39,11 +39,11 @@ module.exports ={
         }
     },
 
-    async atualizarUsuarios(request, response){
+    async atualizarColaborador(request, response){
         try {
             return response.status(200).json({
                 sucesso: true,
-                mensagem: 'Atualizar de Usuários.',
+                mensagem: 'Atualizar Colaborador.',
                 dados:null
             });
         }catch (error) {
@@ -55,11 +55,11 @@ module.exports ={
         }
     },
 
-    async excluirUsuarios(request, response){
+    async excluirColaborador(request, response){
         try {
             return response.status(200).json({
                 sucesso: true,
-                mensagem: 'Excluir Usuários.',
+                mensagem: 'Excluir Colaborador.',
                 dados:null
             });
         }catch (error) {
