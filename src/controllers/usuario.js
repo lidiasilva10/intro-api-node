@@ -25,10 +25,20 @@ module.exports ={
 
     async inserirUsuarios(request, response){
         try {
+            const { CD_Usuario, Senha, DT_Cadastro,DH_Acesso, DT_Vigencia, SN_Bloqueado, ID_Pessoa}= request.body
+            const sql= 'INSERT INTO USUARIO (CD_Usuario, Senha, DT_Cadastro,DH_Acesso, DT_Vigencia, SN_Bloqueado, ID_Pessoa) value(?,?,?,?,?,?,?,?) ';
+
+            const values = [ CD_Usuario, Senha, DT_Cadastro,DH_Acesso, DT_Vigencia, SN_Bloqueado, ID_Pessoa]
+            
+            const [ressults] = await db.query(sql, values);
+
+            const usuario_id = ressults.insertId
+
+            
             return response.status(200).json({
                 sucesso: true,
-                mensagem: 'Inserir de Usuários.',
-                dados:null
+                mensagem: 'Usuarios com sucesso.',
+                dados:usuario_id
             });
         }catch (error) {
             return response.status(500).json({
