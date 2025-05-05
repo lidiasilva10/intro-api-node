@@ -51,10 +51,21 @@ module.exports ={
 
     async atualizarUsuarios(request, response){
         try {
+
+            const { CD_Usuario, Senha, DT_Cadastro,DH_Acesso, DT_Vigencia, SN_Bloqueado, ID_Pessoa}= request.body
+
+            const { id } = request.params;
+
+            const sql= 'UPDATE usuario SET  CD_Usuario = ?, Senha= ?, DT_Cadastro = ?,DH_Acesso = ?, DT_Vigencia = ?, SN_Bloqueado = ?, ID_Pessoa =? WHERE ID_Usuario = ?';
+        
+            const values = [ CD_Usuario, Senha, DT_Cadastro,DH_Acesso, DT_Vigencia, SN_Bloqueado, ID_Pessoa, id]
+
+            const atualizarDados = await db.query(sql, values);
+
             return response.status(200).json({
                 sucesso: true,
-                mensagem: 'Atualizar de Usuários.',
-                dados:null
+                mensagem: `Usuario ${id} Atualização de Usuários!`,
+                dados: atualizarDados[0].affectedRows
             });
         }catch (error) {
             return response.status(500).json({

@@ -5,7 +5,7 @@ const UsuarioController = require('../controllers/usuario');
 
 router.get('/usuarios', UsuarioController.listarUsuarios);
 router.post('/usuarios', UsuarioController.inserirUsuarios);
-router.patch('/usuarios', UsuarioController.atualizarUsuarios);
+router.patch('/usuarios/:id', UsuarioController.atualizarUsuarios);
 router.delete('/usuarios', UsuarioController.excluirUsuarios);
 
 const ColaboradorController = require('../controllers/colaborador');
