@@ -26,7 +26,7 @@ module.exports ={
     async inserirUsuarios(request, response){
         try {
             const { CD_Usuario, Senha, DT_Cadastro,DH_Acesso, DT_Vigencia, SN_Bloqueado, ID_Pessoa}= request.body
-            const sql= 'INSERT INTO USUARIO (CD_Usuario, Senha, DT_Cadastro,DH_Acesso, DT_Vigencia, SN_Bloqueado, ID_Pessoa) value(?,?,?,?,?,?,?,?) ';
+            const sql= 'INSERT INTO USUARIO (CD_Usuario, Senha, DT_Cadastro,DH_Acesso, DT_Vigencia, SN_Bloqueado, ID_Pessoa) value(?,?,?,?,?,?,?) ';
 
             const values = [ CD_Usuario, Senha, DT_Cadastro,DH_Acesso, DT_Vigencia, SN_Bloqueado, ID_Pessoa]
             
@@ -78,6 +78,19 @@ module.exports ={
 
     async excluirUsuarios(request, response){
         try {
+            const { id } = request.params;
+            const sql= 'DELETE FROM usuario WHERE ID_Usuario = ?';
+            const values = [ id ]
+            const [result] = await db.query(sql, values);
+
+            if (result.affectedRows === 0) {
+                return response.status(404).json({
+                    sucesso: false,
+                    mensagem: 'Usuario não encontrado.',
+                    dados: null
+                });
+            }
+
             return response.status(200).json({
                 sucesso: true,
                 mensagem: 'Excluir Usuários.',
