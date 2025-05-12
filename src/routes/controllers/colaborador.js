@@ -25,20 +25,10 @@ module.exports ={
 
     async inserirColaborador(request, response){
         try {
-
-            const { Matricula, SN_Temporario, DT_Cadastro, ID_Pessoa, ID_Funcao, ID_Usuario_Cadastro}= request.body
-            const sql= 'INSERT INTO COLABORADOR (Matricula, SN_Temporario, DT_Cadastro, ID_Pessoa, ID_Funcao,ID_Usuario_Cadastro) value (?,?,?,?,?,?)';
-
-            const values = [Matricula, SN_Temporario, DT_Cadastro, ID_Pessoa, ID_Funcao, ID_Usuario_Cadastro]
-            
-            const [ressults] = await db.query(sql, values);
-
-            const colaborador_id = ressults.insertId
-
             return response.status(200).json({
                 sucesso: true,
                 mensagem: 'Inserir Colaborador.',
-                dados:colaborador_id
+                dados:null
             });
         }catch (error) {
             return response.status(500).json({
@@ -51,21 +41,10 @@ module.exports ={
 
     async atualizarColaborador(request, response){
         try {
-
-                    const { Matricula, SN_Temporario, DT_Cadastro, ID_Pessoa, ID_Funcao,ID_Usuario_Cadastro}= request.body
-        
-                    const { id } = request.params;
-        
-                    const sql= 'UPDATE usuario SET  Matricula =?, SN_Temporario =?, DT_Cadastro =?, ID_Pessoa =?, ID_Funcao =?,ID_Usuario_Cadastro =? WHERE ID_Colaborador = ?';
-                
-                    const values = [ Matricula, SN_Temporario, DT_Cadastro, ID_Pessoa, ID_Funcao,ID_Usuario_Cadastro, id]
-        
-                    const atualizarDados = await db.query(sql, values);
-        
             return response.status(200).json({
                 sucesso: true,
-                mensagem: `Colaborador ${id} Atualização de Colaboradores!`,
-                dados: atualizarDados[0].affectedRows
+                mensagem: 'Atualizar Colaborador.',
+                dados:null
             });
         }catch (error) {
             return response.status(500).json({
