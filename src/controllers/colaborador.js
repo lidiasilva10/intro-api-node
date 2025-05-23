@@ -78,6 +78,19 @@ module.exports ={
 
     async excluirColaborador(request, response){
         try {
+            const { id } = request.params;
+            const sql= 'DELETE FROM colaborador WHERE ID_Colaborador = ?';
+            const values = [ id ]
+            const [result] = await db.query(sql, values);
+
+            if (result.affectedRows === 0) {
+                return response.status(404).json({
+                    sucesso: false,
+                    mensagem: 'Colaborador não encontrado.',
+                    dados: null
+                });
+            }
+
             return response.status(200).json({
                 sucesso: true,
                 mensagem: 'Excluir Colaborador.',
