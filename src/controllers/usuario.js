@@ -103,5 +103,53 @@ module.exports ={
                 dados: error.mensage
             });
         }
-    }
+
+        
+    },
+
+    async loginUsuario(request, response){
+        try {
+
+            const { CD_Usuario, Senha } = request.query;
+
+            const sql = `
+           SELECT
+                CD_Usuario, Senha, DT_Vigencia, SN_Bloqueado
+            FROM
+                usuario
+            WHERE
+                CD_Usuario = ? AND Senha = ? AND DT_Vigencia >=curdate() AND  SN_Bloqueado= ?;
+
+            `;
+
+            const values = [CD_Usuario, Senha];
+
+            const [rows] = await db.query(sql, values);
+            const nItens = rows.length;
+
+            if(nItens <1) {
+                return response.status(404).json({
+                    sucesso: false,
+                    mensagem: 'Login e/ou senha inválido.',
+                    dados: null
+                });
+            }
+
+
+
+            return response.status(200).json({
+                sucesso: true,
+                mensagem: 'Login efetuado com sucesso.',
+                itens: rows.length,
+                dados: rows
+            });
+        }catch (error) {
+            return response.status(500).json({
+                sucesso: false,
+                mensagem: 'Erro na requisição.',
+                dados: error.mensage 
+            });
+        }
+    },
+
 }
